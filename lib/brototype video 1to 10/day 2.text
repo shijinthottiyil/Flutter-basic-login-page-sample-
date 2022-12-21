@@ -1,0 +1,125 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(
+        primaryColor: Colors.indigo,
+      ),
+      home: Scaffold(
+          backgroundColor: Colors.white,
+          // appBar:AppBar() ,
+          body: SafeArea(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Container(
+                  
+                    color: Colors.yellow,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Shijin",
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                            color: Colors.green,
+                            fontSize: 50,
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            TextButton(
+                              onPressed: () {},
+                              child: Text('Click me'),
+                            ),
+                            IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.info),
+                            )
+                          ],
+                        ),
+                        ElevatedButton(
+                            onPressed: () {
+                              print("Elevated Button Pressed");
+                            },
+                            child: Text("Click Me"))
+                      ],
+                    )),
+              ),
+              Expanded(child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadiusDirectional.circular(50),
+                  border: Border.all(
+                    color: Colors.deepOrange,
+                    width: 5,
+                  ),
+                ),
+                child: Center(child: Text("Simple Text")),
+                
+                
+              ))
+              ,Expanded(
+                flex: 2,
+                child: Container(
+                    color: Colors.red,
+                    width: double.infinity,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Shijin",
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                            color: Colors.green,
+                            fontSize: 50,
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            TextButton(
+                              onPressed: () {},
+                              child: Text('Click me'),
+                            ),
+                            IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.info),
+                            )
+                          ],
+                        ),
+                        ElevatedButton(
+                            onPressed: () {
+                              print("Elevated Button Pressed");
+                            },
+                            child: Text("Click Me"))
+                      ],
+                    )),
+              ),
+            ],
+          ))),
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold();
+  }
+}

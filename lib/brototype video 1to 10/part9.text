@@ -1,0 +1,63 @@
+main.dart:
+
+import 'package:flutter/material.dart';
+import 'package:sample_project/listview_sample.dart';
+
+void main(List<String> args) {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(
+        primarySwatch: Colors.red,
+      ),
+      home: ListViewSample(),
+    );
+  }
+}
+
+
+listview_sample.dart:
+
+import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
+
+class ListViewSample extends StatelessWidget {
+  const ListViewSample({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Shijin"),
+        backgroundColor: Colors.blue,
+        centerTitle:true,
+      ),
+      body: SafeArea(child:ListView.separated(itemBuilder: (ctx,index){
+       return ListTile(
+          title: Text("PERSON $index"),
+          subtitle: Text("MESSAGE $index"),
+          leading: CircleAvatar(
+            radius: 30,
+            backgroundColor: Colors.green,
+            backgroundImage: AssetImage('assets/images/test-image.gif'),
+          ),
+          trailing: Text("1$index:pm"),
+          
+
+        );
+      },
+       separatorBuilder: (ctx,index){
+        return Divider();
+
+       },
+        itemCount: 30)
+    ));
+  }
+}

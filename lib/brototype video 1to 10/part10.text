@@ -1,0 +1,203 @@
+part a: Screen Navigation:
+
+main.dart:
+
+import 'package:flutter/material.dart';
+import 'package:sample_project/screen_1.dart';
+import 'package:sample_project/screen_2.dart';
+
+void main(List<String> args) {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter_Demp',
+      theme: ThemeData(
+        primarySwatch: Colors.red,
+      ),
+      home: ScreenOne(),
+      routes: {
+        'screen_1':(ctx){
+          return ScreenOne();
+        },
+        'screen_2':(ctx){
+          return ScreenTwo();
+        }
+      },
+    );
+  }
+}
+
+screen_1.dart:
+
+import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:sample_project/screen_2.dart';
+
+class ScreenOne extends StatelessWidget {
+  const ScreenOne({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+       body: SafeArea(
+         child: Column(
+          children: [
+            Text('Screen1'),
+            ElevatedButton(onPressed: (){
+              // Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
+              //   return ScreenTwo();
+              // },),);
+              Navigator.of(context).pushNamed('screen_2');
+            },
+             child: Text('Goto Screen2'), ),
+          ],
+             ),
+       ),
+    );
+  }
+}
+
+screen_2.dart:
+
+import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
+
+class ScreenTwo extends StatelessWidget {
+  const ScreenTwo({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+     body: SafeArea(
+       child: Column(
+        children: [
+          ElevatedButton(onPressed: (){
+            Navigator.of(context).pushNamed('screen_1');
+          },
+           child: Text("Go Back"),)
+        ],
+       ),
+     ),
+    );
+  }
+}
+
+part b:Shared preferences
+
+main.dart:
+import 'package:flutter/material.dart';
+import 'package:sample_project/screen_1.dart';
+import 'package:sample_project/screen_2.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+
+main() {
+    runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    
+    return MaterialApp(
+      title: 'Flutter_Demp',
+      theme: ThemeData(
+        primarySwatch: Colors.red,
+      ),
+      home: ScreenOne(),
+      // routes: {
+      //   'screen_1':(ctx){
+      //     return ScreenOne();
+      //   },
+      //   'screen_2':(ctx){
+      //     return ScreenTwo();
+      //   }
+      // },
+    );
+  }
+}
+
+
+screen1.dart:
+
+import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:sample_project/screen_2.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class ScreenOne extends StatelessWidget {
+   ScreenOne({super.key});
+  final _textController=TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    getSavedData(context);
+    return Scaffold(
+       body: SafeArea(
+         child: Padding(
+           padding: const EdgeInsets.all(10),
+           child: Column(
+            children: [
+              TextFormField(
+                controller: _textController,
+              ),
+              ElevatedButton(onPressed: (){
+                SaveDataToStorage();
+              }, child: Text('Save Value')),
+            ],
+           ),
+         )
+       ),
+    );
+  }
+  Future<void> SaveDataToStorage() async{
+    print(_textController.text);
+    final sharedPrefs=await SharedPreferences.getInstance();
+   await sharedPrefs.setString('saved_value', _textController.text);
+  }
+  Future<void> getSavedData(BuildContext context)async{
+  final sharedPrefs=await SharedPreferences.getInstance();
+  final savedValue=sharedPrefs.getString('saved_value');
+  if(savedValue!=null){
+    Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>ScreenTwo()));
+  }
+}
+}
+
+screen2.dart:
+
+import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
+
+class ScreenTwo extends StatelessWidget {
+  
+
+  const ScreenTwo({super.key, });
+  
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      
+     body: SafeArea(
+       child: Column(
+        children: [
+          Text('Value is Present'),
+        ],
+       ),
+     ),
+    );
+  }
+}

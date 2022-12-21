@@ -1,0 +1,68 @@
+main.dart:
+
+import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:sample_project/screen_home.dart';
+
+
+void main(List<String> args) {
+  runApp(MyApp());
+  
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(
+        primarySwatch: Colors.purple,
+      ),
+      home: ScreenHome(),
+
+    );
+  }
+}
+
+
+
+
+screenhome.dart:
+
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
+
+import 'package:flutter/material.dart';
+class ScreenHome extends StatefulWidget {
+  const ScreenHome({super.key});
+
+  @override
+  State<ScreenHome> createState() => _ScreenHomeState();
+}
+
+class _ScreenHomeState extends State<ScreenHome> {
+  int _counter=0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.red,
+        title: Text("My First App" ,)
+        ,centerTitle: true,
+
+      ),
+      body: Center(
+        child: Text(_counter.toString()),
+      ),
+      floatingActionButton: FloatingActionButton(onPressed: (){
+        setState(() {
+         _counter++; 
+        });
+        
+      },child: Icon(Icons.add),),
+    );
+  }
+}
